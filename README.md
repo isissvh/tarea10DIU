@@ -22,6 +22,3 @@ Abre la dirección local que indique Vite. Para generar una versión estática:
 
 También funcionan las prácticas guardadas, el resumen de postulaciones, la edición básica del perfil y la guía rápida. Los datos de empresas, fechas y vacantes son demostrativos; no representan una oferta laboral vigente.
 
-## Entrega del curso
-
-El brief solicita publicar el código fuente en un repositorio público de GitHub y entregar un informe con el enlace, las metas implementadas y capturas de los flujos. Antes de publicar, el equipo debe reemplazar o validar los datos de demostración y realizar commits desde las cuentas de sus integrantes.
