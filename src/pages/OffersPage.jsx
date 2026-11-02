@@ -2,7 +2,7 @@ import Icon from "../components/Icon.jsx";
 import OfferCard from "../components/OfferCard.jsx";
 import EmptyState from "../components/EmptyState.jsx";
 
-function OffersPage({ savedPage = false, query, setQuery, area, setArea, location, setLocation, sort, setSort, offers: visibleOffers, savedIds, onToggleSaved, onOpenOffer, onQuickSearch, onReset, onGoCompanies, onGoOffers }) {
+function OffersPage({ savedPage = false, query, setQuery, area, setArea, location, setLocation, sort, setSort, offers: visibleOffers, savedIds, onToggleSaved, onOpenOffer, onReset, onGoOffers }) {
   const hasFilters = query || area !== "Todas las áreas" || location !== "Todas las comunas";
   return (
     <>
@@ -17,11 +17,6 @@ function OffersPage({ savedPage = false, query, setQuery, area, setArea, locatio
           <div className="metric-card"><span className="metric-icon green-soft"><Icon name="clock" size={17} /></span><div><small>Próximos cierres</small><strong>8 <span>para revisar</span></strong></div><span className="metric-spark">↗</span></div>
         </section>
       )}
-      {!savedPage && <section className="quick-search-section"><div className="section-title-row"><div><h2>Empieza por lo que buscas</h2><p>Atajos basados en las metas del estudiante.</p></div><button className="subtle-link" onClick={onGoCompanies}>Explorar empresas <Icon name="arrow" size={15} /></button></div><div className="quick-searches">
-        <button onClick={() => onQuickSearch("Python")}><span className="quick-icon lavender"><Icon name="spark" size={17} /></span><span><strong>Trabajo con Python</strong><small>Encuentra vacantes afines</small></span><Icon name="chevron" size={16} /></button>
-        <button onClick={() => onQuickSearch("Las Condes")}><span className="quick-icon mint"><Icon name="pin" size={17} /></span><span><strong>En Las Condes</strong><small>Filtra por ubicación</small></span><Icon name="chevron" size={16} /></button>
-        <button onClick={() => onGoCompanies()}><span className="quick-icon peach"><Icon name="building" size={17} /></span><span><strong>Buscar una empresa</strong><small>Revisa su perfil y vacantes</small></span><Icon name="chevron" size={16} /></button>
-      </div></section>}
       <section className="offers-section">
         <div className="section-title-row offers-title"><div><div className="eyebrow">{savedPage ? "SELECCIÓN PERSONAL" : "VACANTES RECIENTES"}</div><h2>{savedPage ? "Tus prácticas guardadas" : "Prácticas para explorar"} <span className="count-pill">{visibleOffers.length}</span></h2><p>{savedPage ? "Abre el detalle para revisar requisitos o continuar." : "Ofertas con información clara para que puedas decidir con confianza."}</p></div><label className="sort-control"><span>Ordenar por</span><select value={sort} onChange={(event) => setSort(event.target.value)}><option>Compatibilidad</option><option>Más recientes</option><option>Cierre más próximo</option></select><Icon name="down" size={14} /></label></div>
         <div className="search-panel">

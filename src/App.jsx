@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import Icon from "./components/Icon.jsx";
 import OffersPage from "./pages/OffersPage.jsx";
 import OfferDetailPage from "./pages/OfferDetailPage.jsx";
@@ -16,7 +16,13 @@ import { offers, companyDetails } from "./data/practices.js";
 
 function App() {
   const [activeView, setActiveView] = useState("offers");
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [activeView]);
+
   const [query, setQuery] = useState("");
+  const [industry, setIndustry] = useState("");
   const [area, setArea] = useState("Todas las áreas");
   const [location, setLocation] = useState("Todas las comunas");
   const [sort, setSort] = useState("Compatibilidad");
@@ -72,8 +78,9 @@ function App() {
         const companyOffers = offers.filter((offer) => offer.company === name);
         return { name, details: companyDetails[name], offers: companyOffers };
       })
+      .filter((company) => !industry || company.details.industry === industry)
       .filter((company) => !needle || (company.name + " " + company.details.industry).toLocaleLowerCase("es").includes(needle));
-  }, [query]);
+  }, [query, industry]);
 
   const showToast = (message) => {
     setToast(message);
@@ -81,6 +88,9 @@ function App() {
   };
 
   const changeView = (view) => {
+    if (view === activeView) {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
     setActiveView(view);
     setSelectedOffer(null);
     setSelectedCompany(null);
@@ -279,6 +289,9 @@ function App() {
             <CompaniesPage
               query={query}
               setQuery={setQuery}
+              industry={industry}
+              setIndustry={setIndustry}
+              industries={[...new Set(Object.values(companyDetails).map((company) => company.industry))].sort((a, b) => a.localeCompare(b, "es"))}
               companies={companies}
               onOpenCompany={openCompany}
               onViewOffers={(name) => { setSelectedCompany(null); setQuery(name); setActiveView("offers"); }}
