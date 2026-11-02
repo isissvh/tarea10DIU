@@ -18,12 +18,3 @@ Para compilar:
 ```bash
 npm run build
 ```
-
-## Integración de las siguientes entregas
-
-Esta entrega muestra una pantalla inicial mínima. La segunda persona agregará
-los paneles de prácticas y empresas en `src/pages/`. La tercera agregará los
-paneles de gestión del estudiante y reemplazará `src/App.jsx` por la versión
-completa que conecta todos los paneles.
-
-Los datos son demostrativos. No se incluye backend.
