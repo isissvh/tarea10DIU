@@ -7,6 +7,7 @@ export const offers = [
     title: "Práctica de Analítica y Automatización",
     area: "Datos y analítica",
     location: "Las Condes",
+    city: "Santiago",
     region: "Región Metropolitana",
     modality: "Híbrida",
     stipend: "$300.000",
@@ -28,6 +29,7 @@ export const offers = [
     title: "Práctica en Desarrollo de Software",
     area: "Desarrollo de software",
     location: "Las Condes",
+    city: "Santiago",
     region: "Región Metropolitana",
     modality: "Híbrida",
     stipend: "$320.000",
@@ -49,6 +51,7 @@ export const offers = [
     title: "Práctica Data Engineering",
     area: "Datos y analítica",
     location: "Las Condes",
+    city: "Santiago",
     region: "Región Metropolitana",
     modality: "Híbrida",
     stipend: "$350.000",
@@ -70,6 +73,7 @@ export const offers = [
     title: "Práctica en Ingeniería de Software",
     area: "Desarrollo de software",
     location: "Santiago Centro",
+    city: "Santiago",
     region: "Región Metropolitana",
     modality: "Presencial",
     stipend: "$280.000",
@@ -91,6 +95,7 @@ export const offers = [
     title: "Práctica en Inteligencia de Negocios",
     area: "Datos y analítica",
     location: "Providencia",
+    city: "Santiago",
     region: "Región Metropolitana",
     modality: "Híbrida",
     stipend: "$300.000",
@@ -112,6 +117,7 @@ export const offers = [
     title: "Práctica QA y Automatización de Pruebas",
     area: "Calidad de software",
     location: "Viña del Mar",
+    city: "Viña del Mar",
     region: "Región de Valparaíso",
     modality: "Remota",
     stipend: "$250.000",
@@ -133,6 +139,7 @@ export const offers = [
     title: "Práctica en Sistemas y Datos",
     area: "Infraestructura y sistemas",
     location: "Santiago Centro",
+    city: "Santiago",
     region: "Región Metropolitana",
     modality: "Presencial",
     stipend: "$330.000",
@@ -154,6 +161,7 @@ export const offers = [
     title: "Práctica de Ciberseguridad",
     area: "Ciberseguridad",
     location: "Providencia",
+    city: "Santiago",
     region: "Región Metropolitana",
     modality: "Híbrida",
     stipend: "$300.000",
@@ -168,6 +176,14 @@ export const offers = [
     schedule: "30 horas semanales · lunes a viernes",
   },
 ];
+
+// Group communes by region using the complete catalog.
+export const locationGroups = [...new Set(offers.map((offer) => offer.region))]
+  .map((region) => ({
+    label: region,
+    options: [...new Set(offers.filter((offer) => offer.region === region).map((offer) => offer.location))]
+      .sort((a, b) => a.localeCompare(b, "es")),
+  }));
 
 export const companyDetails = {
   "VOLVO CHILE SPA": {

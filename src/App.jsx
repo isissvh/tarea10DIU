@@ -22,9 +22,9 @@ function App() {
   }, [activeView]);
 
   const [query, setQuery] = useState("");
-  const [industry, setIndustry] = useState("");
-  const [area, setArea] = useState("Todas las áreas");
-  const [location, setLocation] = useState("Todas las comunas");
+  const [industry, setIndustry] = useState([]);
+  const [area, setArea] = useState([]);
+  const [location, setLocation] = useState([]);
   const [sort, setSort] = useState("Compatibilidad");
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [detailReturnView, setDetailReturnView] = useState("offers");
@@ -56,12 +56,12 @@ function App() {
   const filteredOffers = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase("es");
     let result = offers.filter((offer) => {
-      const searchable = [offer.title, offer.company, offer.area, offer.location, offer.region, offer.modality, ...offer.tags]
+      const searchable = [offer.title, offer.company, offer.area, offer.location, offer.city, offer.region, offer.modality, ...offer.tags]
         .join(" ")
         .toLocaleLowerCase("es");
       const matchesQuery = !needle || searchable.includes(needle);
-      const matchesArea = area === "Todas las áreas" || offer.area === area;
-      const matchesLocation = location === "Todas las comunas" || offer.location === location;
+      const matchesArea = !area.length || area.includes(offer.area);
+      const matchesLocation = !location.length || location.includes(offer.location);
       const matchesSaved = activeView !== "saved" || savedIds.includes(offer.id);
       return matchesQuery && matchesArea && matchesLocation && matchesSaved;
     });
@@ -78,7 +78,7 @@ function App() {
         const companyOffers = offers.filter((offer) => offer.company === name);
         return { name, details: companyDetails[name], offers: companyOffers };
       })
-      .filter((company) => !industry || company.details.industry === industry)
+      .filter((company) => !industry.length || industry.includes(company.details.industry))
       .filter((company) => !needle || (company.name + " " + company.details.industry).toLocaleLowerCase("es").includes(needle));
   }, [query, industry]);
 
@@ -97,15 +97,15 @@ function App() {
     setNoticeOpen(false);
     setProfileMenuOpen(false);
     setQuery("");
-    setArea("Todas las áreas");
-    setLocation("Todas las comunas");
+    setArea([]);
+    setLocation([]);
     setSort("Compatibilidad");
   };
 
   const runQuickSearch = (term) => {
     setActiveView("offers");
-    setArea("Todas las áreas");
-    setLocation("Todas las comunas");
+    setArea([]);
+    setLocation([]);
     setQuery(term);
   };
 
@@ -231,8 +231,8 @@ function App() {
 
   const resetFilters = () => {
     setQuery("");
-    setArea("Todas las áreas");
-    setLocation("Todas las comunas");
+    setArea([]);
+    setLocation([]);
     setSort("Compatibilidad");
   };
 

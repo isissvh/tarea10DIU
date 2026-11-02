@@ -1,9 +1,10 @@
+import MultiSelectFilter from "../components/MultiSelectFilter.jsx";
 import Icon from "../components/Icon.jsx";
 import CompanyMark from "../components/CompanyMark.jsx";
 import EmptyState from "../components/EmptyState.jsx";
 
 function CompaniesPage({ query, setQuery, industry, setIndustry, industries, companies: visibleCompanies, onOpenCompany, onViewOffers }) {
-  const resetFilters = () => { setQuery(""); setIndustry(""); };
+  const resetFilters = () => { setQuery(""); setIndustry([]); };
   return (
     <>
       <section className="welcome-row compact-welcome"><div><div className="eyebrow">DIRECTORIO</div><h1>Empresas con prácticas</h1><p>Revisa las organizaciones y las oportunidades disponibles.</p></div></section>
@@ -11,7 +12,7 @@ function CompaniesPage({ query, setQuery, industry, setIndustry, industries, com
         <div className="section-title-row"><div><h2>Directorio de empresas <span className="count-pill">{visibleCompanies.length}</span></h2><p>Información organizada para comparar oportunidades.</p></div></div>
         <div className="search-panel">
           <label className="main-search"><Icon name="search" size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar por nombre o industria..." aria-label="Buscar empresas" /></label>
-          <label className="filter-select"><span>Industria</span><select value={industry} onChange={(event) => setIndustry(event.target.value)} aria-label="Filtrar por industria"><option value="">Todas las industrias</option>{industries.map((item) => <option key={item} value={item}>{item}</option>)}</select><Icon name="down" size={14} /></label>
+          <MultiSelectFilter label="Industria" allLabel="Todas las industrias" options={industries} value={industry} onChange={setIndustry} />
           <button className="filter-button" onClick={resetFilters}><span className="filter-glyph">☷</span> Limpiar</button>
         </div>
         {visibleCompanies.length ? <div className="company-list">{visibleCompanies.map((company) => {
