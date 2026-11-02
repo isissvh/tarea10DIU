@@ -112,7 +112,7 @@ function App() {
   const toggleSaved = (id) => {
     const alreadySaved = savedIds.includes(id);
     setSavedIds(alreadySaved ? savedIds.filter((savedId) => savedId !== id) : [...savedIds, id]);
-    showToast(alreadySaved ? "Práctica quitada de guardadas" : "Práctica guardada");
+    showToast(alreadySaved ? "Práctica eliminada de guardadas" : "Práctica guardada");
   };
 
   const openOffer = (offer) => {
@@ -315,7 +315,7 @@ function App() {
         </main>
         <footer className="page-footer"><span>Prácticas DI <span className="footer-dot">·</span> Departamento de Informática UTFSM</span></footer>
       </div>
-      {toast && <div className="toast"><span className="toast-icon"><Icon name="check" size={15} /></span>{toast}</div>}
+      {toast && <div className="toast" role="status" aria-live="polite"><span className="toast-icon"><Icon name="check" size={15} /></span>{toast}</div>}
     </div>
   );
 }
